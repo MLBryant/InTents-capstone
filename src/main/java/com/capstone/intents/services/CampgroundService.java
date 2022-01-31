@@ -1,6 +1,8 @@
 package com.capstone.intents.services;
 
+import com.capstone.intents.entities.Campground;
 import com.capstone.intents.model.CampgroundDto;
+import com.capstone.intents.model.UserCampground;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,7 +11,9 @@ import java.util.Optional;
 public interface CampgroundService {
     List<CampgroundDto> findAllCampgrounds();
 
-    CampgroundDto createCampground(CampgroundDto campgroundDto);
+    Optional<Campground> findByFacilityId(Long facilityId);
+
+    CampgroundDto createCampground(UserCampground userCampground);
 
     void deleteCampgroundById(Long id);
 

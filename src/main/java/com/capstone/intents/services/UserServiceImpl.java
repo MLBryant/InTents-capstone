@@ -16,6 +16,12 @@ public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
 
+
+    @Override
+    public User findUserById(Long id) {
+        return userRepository.findUserById(id);
+    }
+
     @Override
     public List<UserDto> findAllUsers() {
         return userRepository.findAll().stream().map(UserDto::new).collect(Collectors.toList());
