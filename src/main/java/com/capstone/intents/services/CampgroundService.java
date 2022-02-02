@@ -13,7 +13,7 @@ public interface CampgroundService {
 
     Optional<Campground> findByFacilityId(Long facilityId);
 
-    CampgroundDto createCampground(UserCampground userCampground);
+    CampgroundDto createCampground(CampgroundDto campgroundDto);
 
     void deleteCampgroundById(Long id);
 

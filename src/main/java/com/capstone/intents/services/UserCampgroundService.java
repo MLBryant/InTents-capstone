@@ -9,4 +9,6 @@ public interface UserCampgroundService {
     public String addUserToCampground (Long userId, Long facilityId);
 
     List<Campground> getUserCampgrounds(Long userId);
+
+    String removeUserCampground(Long userId, Long facilityId);
 }

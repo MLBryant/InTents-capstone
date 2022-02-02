@@ -35,7 +35,7 @@ public class UserCampgroundCommentServiceImpl implements UserCampgroundCommentSe
                         "SELECT ucc.id AS ucc_id, u.id AS u_id, ucc.comment FROM users u " +
                                 "INNER JOIN user_campground_comment ucc ON u.id = ucc.user_id " +
                                 "INNER JOIN campground c ON ucc.campground_id = c.id " +
-                                "WHERE c.id = ?1")
+                                "WHERE c.facility_id = ?1")
                 .setParameter(1, campgroundId).getResultList();
     }
 

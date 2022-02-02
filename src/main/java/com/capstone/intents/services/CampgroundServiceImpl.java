@@ -35,16 +35,16 @@ public class CampgroundServiceImpl implements CampgroundService{
 
     @Override
     @Transactional
-    public CampgroundDto createCampground(UserCampground userCampground) {
+    public CampgroundDto createCampground(CampgroundDto campgroundDto) {
 //        User user = userRepository.findUserById(userCampground.getUserId());
-        Optional<Campground> campgroundOptional = campgroundRepository.findByFacilityId(userCampground.getCampgroundDto().getFacilityId());
+        Optional<Campground> campgroundOptional = campgroundRepository.findByFacilityId(campgroundDto.getFacilityId());
         if (campgroundOptional.isPresent()) {
             Campground campground = campgroundOptional.get();
 //            user.addCampgroundToSet(campground);
             return new CampgroundDto(campground);
         } else {
             Campground campground = new Campground();
-            setCampgroundAttributes(userCampground.getCampgroundDto(), campground);
+            setCampgroundAttributes(campgroundDto, campground);
 //            user.addCampgroundToSet(campground);
             return new CampgroundDto(campgroundRepository.saveAndFlush(campground));
         }

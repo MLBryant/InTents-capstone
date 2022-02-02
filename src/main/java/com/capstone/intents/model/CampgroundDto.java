@@ -3,6 +3,7 @@ package com.capstone.intents.model;
 import com.capstone.intents.entities.Campground;
 import com.capstone.intents.entities.User;
 import com.capstone.intents.entities.UserCampgroundComment;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,7 +22,9 @@ public class CampgroundDto {
     private String sitesWithWaterHookup;
     private String sitesWithSewerHookup;
     private String faciltyPhoto;
+    @JsonIgnore
     private Set<User> users;
+    @JsonIgnore
     private Set<UserCampgroundComment> userCampgroundComments;
 
     public CampgroundDto(Campground campground) {

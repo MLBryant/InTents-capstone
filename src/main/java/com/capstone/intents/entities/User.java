@@ -38,6 +38,11 @@ public class User {
         campground.getUserSet().add(this);
     }
 
+    public void removeCampgroundFromSet(Campground campground) {
+        this.getCampgroundSet().remove(campground);
+        campground.getUserSet().remove(this);
+    }
+
     public void addCommentToSet(UserCampgroundComment userCampgroundComment) {
         this.userCampgroundCommentSet.add(userCampgroundComment);
         userCampgroundComment.setUser(this);

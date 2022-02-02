@@ -36,6 +36,12 @@ public class Campground {
 //        users.add(user);
 //    }
 
+    @PreRemove
+    public void removeCampgroundFromUser() {
+        for (User user: userSet) {
+            user.getCampgroundSet().remove(this);
+        }
+    }
     public void addCommentToSet(UserCampgroundComment userCampgroundComment) {
         this.userCampgroundCommentSet.add(userCampgroundComment);
         userCampgroundComment.setCampground(this);

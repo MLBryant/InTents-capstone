@@ -26,9 +26,14 @@ public class CampgroundRestController {
         return campgroundService.findAllCampgrounds();
     }
 
+    @GetMapping("/campgrounds/{facilityId}")
+    public Optional<Campground> findByFacilityId(@PathVariable Long facilityId) {
+        return campgroundService.findByFacilityId(facilityId);
+    }
+
     @PostMapping("/campgrounds")
-    public CampgroundDto createCampground(@RequestBody UserCampground userCampground) {
-        return campgroundService.createCampground(userCampground);
+    public CampgroundDto createCampground(@RequestBody CampgroundDto campgroundDto) {
+        return campgroundService.createCampground(campgroundDto);
     }
 
     @PutMapping("/campgrounds")

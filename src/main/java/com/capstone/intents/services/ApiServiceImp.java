@@ -38,9 +38,9 @@ public class ApiServiceImp implements ApiService{
                     ApiResponse apiResponse = new ApiResponse(
                             elem.getAttribute("agencyIcon"),
                             elem.getAttribute("agencyName"),
-                            elem.getAttribute("contractId"),
+                            elem.getAttribute("contractID"),
                             elem.getAttribute("contractType"),
-                            elem.getAttribute("facilityId"),
+                            elem.getAttribute("facilityID"),
                             elem.getAttribute("facilityName"),
                             elem.getAttribute("faciltyPhoto"),
                             elem.getAttribute("favorite"),

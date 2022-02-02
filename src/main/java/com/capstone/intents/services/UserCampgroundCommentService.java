@@ -1,5 +1,6 @@
 package com.capstone.intents.services;
 
+import com.capstone.intents.entities.User;
 import com.capstone.intents.entities.UserCampgroundComment;
 import com.capstone.intents.model.UserCampgroundCommentDto;
 

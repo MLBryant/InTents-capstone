@@ -28,4 +28,9 @@ public class UserCampgroundRestController {
         return userCampgroundService.getUserCampgrounds(userId);
     }
 
+    @DeleteMapping("/remove/{userId}/{facilityId}")
+    public String removeUserCampground(@PathVariable ("userId") Long userId, @PathVariable ("facilityId") Long facilityId) {
+        return userCampgroundService.removeUserCampground(userId, facilityId);
+    }
+
 }
