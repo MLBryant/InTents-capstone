@@ -1,6 +1,7 @@
 package com.capstone.intents.entities;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -15,17 +16,29 @@ public class Campground {
     private Long id;
     @Column(unique = true)
     private Long facilityId;
-    private String name;
+    private String facilityName;
     private String state;
-    private Boolean petsAllowed;
-    private Boolean ampSites;
-    private Boolean waterSites;
-    private Boolean sewerSites;
-    private String photoUrl;
+    private String sitesWithPetsAllowed;
+    private String sitesWithAmps;
+    private String sitesWithWaterHookup;
+    private String sitesWithSewerHookup;
+    private String faciltyPhoto;
 
-    @OneToMany(mappedBy = "campground")
-    private Set<UserCampgroundComment> userCampgroundComments = new HashSet<>();
+    @OneToMany(mappedBy = "campground", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @EqualsAndHashCode.Exclude
+    private Set<UserCampgroundComment> userCampgroundCommentSet = new HashSet<>();
 
-    @ManyToMany(mappedBy = "campgrounds")
-    private Set<User> users = new HashSet<>();
+    @ManyToMany(mappedBy = "campgroundSet", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @EqualsAndHashCode.Exclude
+    private Set<User> userSet = new HashSet<>();
+
+//    public void addUserToSet(User user) {
+//        users.add(user);
+//    }
+
+    public void addCommentToSet(UserCampgroundComment userCampgroundComment) {
+        this.userCampgroundCommentSet.add(userCampgroundComment);
+        userCampgroundComment.setCampground(this);
+    }
 }
+

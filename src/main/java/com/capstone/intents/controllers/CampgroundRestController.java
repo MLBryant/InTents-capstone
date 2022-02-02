@@ -1,5 +1,6 @@
 package com.capstone.intents.controllers;
 
+import com.capstone.intents.entities.Campground;
 import com.capstone.intents.model.CampgroundDto;
 import com.capstone.intents.model.UserCampground;
 import com.capstone.intents.services.CampgroundService;
@@ -21,7 +22,7 @@ public class CampgroundRestController {
     }
 
     @GetMapping("/campgrounds")
-    public List<CampgroundDto> findAllCampgrounds() {
+    public List<Campground> findAllCampgrounds() {
         return campgroundService.findAllCampgrounds();
     }
 

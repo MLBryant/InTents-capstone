@@ -6,7 +6,6 @@ import com.capstone.intents.entities.UserCampgroundComment;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -15,27 +14,27 @@ public class CampgroundDto {
 
     private Long id;
     private Long facilityId;
-    private String name;
+    private String facilityName;
     private String state;
-    private Boolean petsAllowed;
-    private Boolean ampSites;
-    private Boolean waterSites;
-    private Boolean sewerSites;
-    private String photoUrl;
+    private String sitesWithPetsAllowed;
+    private String sitesWithAmps;
+    private String sitesWithWaterHookup;
+    private String sitesWithSewerHookup;
+    private String faciltyPhoto;
     private Set<User> users;
     private Set<UserCampgroundComment> userCampgroundComments;
 
     public CampgroundDto(Campground campground) {
         this.id = campground.getId();
         this.facilityId = campground.getFacilityId();
-        this.name = campground.getName();
+        this.facilityName = campground.getFacilityName();
         this.state = campground.getState();
-        this.petsAllowed = campground.getPetsAllowed();
-        this.ampSites = campground.getAmpSites();
-        this.waterSites = campground.getWaterSites();
-        this.sewerSites = campground.getSewerSites();
-        this.photoUrl = campground.getPhotoUrl();
-        this.users = campground.getUsers();
-        this.userCampgroundComments = campground.getUserCampgroundComments();
+        this.sitesWithPetsAllowed = campground.getSitesWithPetsAllowed();
+        this.sitesWithAmps = campground.getSitesWithAmps();
+        this.sitesWithWaterHookup = campground.getSitesWithSewerHookup();
+        this.sitesWithSewerHookup = campground.getSitesWithSewerHookup();
+        this.faciltyPhoto = campground.getFaciltyPhoto();
+        this.users = campground.getUserSet();
+        this.userCampgroundComments = campground.getUserCampgroundCommentSet();
     }
 }

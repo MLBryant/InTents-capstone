@@ -4,6 +4,9 @@ import com.capstone.intents.model.UserDto;
 import com.capstone.intents.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,10 +19,33 @@ public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     @Override
     public User findUserById(Long id) {
         return userRepository.findUserById(id);
+    }
+
+    @Override
+    public Optional<User> findUserByUserName(String userName) {
+        return userRepository.findUserByUserName(userName);
+    }
+
+    @Override
+    public UserDto logUserIn(UserDto userDto) {
+        Optional<User> userOptional = findUserByUserName(userDto.getUserName());
+        if (userOptional.isPresent()) {
+            if (bCryptPasswordEncoder.matches(userDto.getPassword(), userOptional.get().getPassword())) {
+                return new UserDto(userOptional.get());
+            }
+            else {
+                return userDto;
+            }
+        } else {
+            return userDto;
+        }
     }
 
     @Override
@@ -29,10 +55,16 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserDto createUser(UserDto userDto) {
-        User user = new User();
-        user.setUserName(userDto.getUserName());
-        user.setPassword(userDto.getPassword());
-        return new UserDto(userRepository.save(user));
+        Optional<User> userOptional = findUserByUserName(userDto.getUserName());
+        if (userOptional.isPresent()) {
+            return userDto;
+        } else {
+            String password = bCryptPasswordEncoder.encode(userDto.getPassword());
+            User user = new User();
+            user.setUserName(userDto.getUserName());
+            user.setPassword(password);
+            return new UserDto(userRepository.save(user));
+        }
     }
 
     @Override

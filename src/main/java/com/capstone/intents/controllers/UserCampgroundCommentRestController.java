@@ -1,5 +1,6 @@
 package com.capstone.intents.controllers;
 
+import com.capstone.intents.entities.UserCampgroundComment;
 import com.capstone.intents.model.UserCampgroundCommentDto;
 import com.capstone.intents.services.UserCampgroundCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/comments")
 public class UserCampgroundCommentRestController {
 
     private final UserCampgroundCommentService userCampgroundCommentService;
@@ -19,22 +20,27 @@ public class UserCampgroundCommentRestController {
         this.userCampgroundCommentService = userCampgroundCommentService;
     }
 
-    @GetMapping("/comments")
+    @GetMapping
     public List<UserCampgroundCommentDto> findAllComments() {
         return userCampgroundCommentService.findAllComments();
     }
 
-    @PostMapping("/comments")
-    public UserCampgroundCommentDto createComment(@RequestBody UserCampgroundCommentDto userCampgroundCommentDto) {
+    @GetMapping("/{campgroundId}")
+    public List<UserCampgroundComment> findCommentsByFacilityId(@PathVariable Long campgroundId) {
+        return userCampgroundCommentService.findCommentsByCampgroundId(campgroundId);
+    }
+
+    @PostMapping
+    public String createComment(@RequestBody UserCampgroundCommentDto userCampgroundCommentDto) {
         return userCampgroundCommentService.createComment(userCampgroundCommentDto);
     }
 
-    @PutMapping("/comments")
+    @PutMapping
     public Optional<UserCampgroundCommentDto> updateComment(@RequestBody UserCampgroundCommentDto userCampgroundCommentDto) {
         return userCampgroundCommentService.updateComment(userCampgroundCommentDto);
     }
 
-    @DeleteMapping("/comments/{id}")
+    @DeleteMapping("/{id}")
     public void deleteComment(@PathVariable Long id) {
         userCampgroundCommentService.deleteCommentById(id);
     }

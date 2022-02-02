@@ -9,7 +9,7 @@ import java.util.Optional;
 
 
 public interface CampgroundService {
-    List<CampgroundDto> findAllCampgrounds();
+    List<Campground> findAllCampgrounds();
 
     Optional<Campground> findByFacilityId(Long facilityId);
 

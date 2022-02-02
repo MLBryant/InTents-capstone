@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -23,8 +24,8 @@ public class CampgroundServiceImpl implements CampgroundService{
     private final UserRepository userRepository;
 
     @Override
-    public List<CampgroundDto> findAllCampgrounds() {
-        return campgroundRepository.findAll().stream().map(CampgroundDto::new).collect(Collectors.toList());
+    public List<Campground> findAllCampgrounds() {
+        return campgroundRepository.findAll().stream().collect(Collectors.toList());
     }
 
     @Override
@@ -33,20 +34,19 @@ public class CampgroundServiceImpl implements CampgroundService{
     }
 
     @Override
+    @Transactional
     public CampgroundDto createCampground(UserCampground userCampground) {
-        User user = userRepository.findUserById(userCampground.getUserId());
+//        User user = userRepository.findUserById(userCampground.getUserId());
         Optional<Campground> campgroundOptional = campgroundRepository.findByFacilityId(userCampground.getCampgroundDto().getFacilityId());
-        Campground campground = new Campground();
         if (campgroundOptional.isPresent()) {
-            campground = campgroundOptional.get();
-            campground.getUsers().add(user);
-            user.getCampgrounds().add(campground);
+            Campground campground = campgroundOptional.get();
+//            user.addCampgroundToSet(campground);
             return new CampgroundDto(campground);
         } else {
+            Campground campground = new Campground();
             setCampgroundAttributes(userCampground.getCampgroundDto(), campground);
-            user.getCampgrounds().add(campground);
-            campground.getUsers().add(user);
-            return new CampgroundDto(campgroundRepository.save(campground));
+//            user.addCampgroundToSet(campground);
+            return new CampgroundDto(campgroundRepository.saveAndFlush(campground));
         }
     }
 
@@ -69,23 +69,12 @@ public class CampgroundServiceImpl implements CampgroundService{
 
     private void setCampgroundAttributes(CampgroundDto campgroundDto, Campground campground) {
         campground.setFacilityId(campgroundDto.getFacilityId());
-        campground.setName(campgroundDto.getName());
+        campground.setFacilityName(campgroundDto.getFacilityName());
         campground.setState(campgroundDto.getState());
-        campground.setPetsAllowed(campgroundDto.getPetsAllowed());
-        campground.setAmpSites(campgroundDto.getAmpSites());
-        campground.setWaterSites(campgroundDto.getWaterSites());
-        campground.setSewerSites(campgroundDto.getSewerSites());
-        campground.setPhotoUrl(campgroundDto.getPhotoUrl());
-    }
-
-    private void setCampgroundDtoAttributes(UserCampground userCampground, CampgroundDto campgroundDto) {
-        campgroundDto.setFacilityId(userCampground.getCampgroundDto().getFacilityId());
-        campgroundDto.setName(userCampground.getCampgroundDto().getName());
-        campgroundDto.setState(userCampground.getCampgroundDto().getState());
-        campgroundDto.setPetsAllowed(userCampground.getCampgroundDto().getPetsAllowed());
-        campgroundDto.setAmpSites(userCampground.getCampgroundDto().getAmpSites());
-        campgroundDto.setWaterSites(userCampground.getCampgroundDto().getWaterSites());
-        campgroundDto.setSewerSites(userCampground.getCampgroundDto().getSewerSites());
-        campgroundDto.setPhotoUrl(userCampground.getCampgroundDto().getPhotoUrl());
+        campground.setSitesWithPetsAllowed(campgroundDto.getSitesWithPetsAllowed());
+        campground.setSitesWithAmps(campgroundDto.getSitesWithAmps());
+        campground.setSitesWithWaterHookup(campgroundDto.getSitesWithWaterHookup());
+        campground.setSitesWithSewerHookup(campgroundDto.getSitesWithSewerHookup());
+        campground.setFaciltyPhoto(campgroundDto.getFaciltyPhoto());
     }
 }

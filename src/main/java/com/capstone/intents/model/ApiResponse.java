@@ -14,7 +14,7 @@ public class ApiResponse {
     private String contractType;
     private String facilityId;
     private String facilityName;
-    private String facilityPhoto;
+    private String faciltyPhoto;
     private String favorite;
     private String latitude;
     private String listingOnly;
