@@ -17,5 +17,5 @@ public interface UserCampgroundCommentService {
 
     void deleteCommentById(Long id);
 
-    Optional<UserCampgroundCommentDto> updateComment(UserCampgroundCommentDto userCampgroundCommentDto);
+    String updateComment(UserCampgroundCommentDto userCampgroundCommentDto);
 }

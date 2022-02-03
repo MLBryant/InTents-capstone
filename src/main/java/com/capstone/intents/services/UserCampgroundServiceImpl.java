@@ -2,6 +2,7 @@ package com.capstone.intents.services;
 
 import com.capstone.intents.entities.Campground;
 import com.capstone.intents.entities.User;
+import com.capstone.intents.model.CampgroundDto;
 import com.capstone.intents.repositories.CampgroundRepository;
 import com.capstone.intents.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,8 @@ public class UserCampgroundServiceImpl implements UserCampgroundService{
     @Transactional
     public String addUserToCampground(Long userId, Long facilityId) {
         Optional<User> userOptional = userRepository.findById(userId);
-        Optional<Campground> campgroundOptional = campgroundRepository.findByFacilityId(facilityId);
+        Optional<CampgroundDto> campgroundDtoOptional = campgroundRepository.findByFacilityId(facilityId);
+        Optional<Campground> campgroundOptional = campgroundRepository.findById(campgroundDtoOptional.get().getId());
         if (userOptional.isPresent() && campgroundOptional.isPresent()) {
             userOptional.get().addCampgroundToSet(campgroundOptional.get());
             entityManager.persist(userOptional.get());
@@ -57,10 +59,11 @@ public class UserCampgroundServiceImpl implements UserCampgroundService{
     @Transactional
     public String removeUserCampground(Long userId, Long facilityId) {
         Optional<User> userOptional = userRepository.findById(userId);
-        Optional<Campground> campgroundOptional = campgroundRepository.findByFacilityId(facilityId);
+        Optional<CampgroundDto> campgroundDtoOptional = campgroundRepository.findByFacilityId(facilityId);
+        Optional<Campground> campgroundOptional = campgroundRepository.findById(campgroundDtoOptional.get().getId());
         userOptional.get().removeCampgroundFromSet(campgroundOptional.get());
         entityManager.persist(userOptional.get());
-        entityManager.persist(campgroundOptional.get());
+        entityManager.persist(campgroundDtoOptional.get());
         entityManager.flush();
 //        entityManager.createNativeQuery(
 //                "DELETE FROM user_campground " +

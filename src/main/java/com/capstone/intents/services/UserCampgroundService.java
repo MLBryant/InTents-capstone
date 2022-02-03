@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UserCampgroundService {
 
-    public String addUserToCampground (Long userId, Long facilityId);
+    String addUserToCampground (Long userId, Long facilityId);
 
     List<Campground> getUserCampgrounds(Long userId);
 

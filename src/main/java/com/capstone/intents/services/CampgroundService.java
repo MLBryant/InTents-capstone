@@ -11,7 +11,9 @@ import java.util.Optional;
 public interface CampgroundService {
     List<Campground> findAllCampgrounds();
 
-    Optional<Campground> findByFacilityId(Long facilityId);
+    Optional<Campground> findById(Long campgroundId);
+
+    Optional<CampgroundDto> findByFacilityId(Long facilityId);
 
     CampgroundDto createCampground(CampgroundDto campgroundDto);
 

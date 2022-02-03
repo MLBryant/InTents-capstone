@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <header>
+        <button id="logoutButton">Logout</button>
+    </header>
+    <div id = "campgroundDiv"></div>
+    <div id = "commentDiv"></div>
+    <div id = 'commentModal' class = 'modal'>
+        <div id = 'commentModalContent'>
+            <form id = 'addCommentForm' action="">
+                <textarea id = 'addCommentField' rows = "4" required placeholder="Enter Comment"></textarea>
+                <input id = "submitButton" type="submit" value = 'Add Comment'>
+            </form>
+            <button id = 'commentCancel'>Cancel</button>
+        </div>
+    </div>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="./javascript/campground.js"></script>
+</body>
+</html>

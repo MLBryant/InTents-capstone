@@ -5,6 +5,7 @@ import com.capstone.intents.model.CampgroundDto;
 import com.capstone.intents.model.UserCampground;
 import com.capstone.intents.services.CampgroundService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,22 +22,22 @@ public class CampgroundRestController {
         this.campgroundService = campgroundService;
     }
 
-    @GetMapping("/campgrounds")
+    @GetMapping(value = "/campgrounds", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Campground> findAllCampgrounds() {
         return campgroundService.findAllCampgrounds();
     }
 
-    @GetMapping("/campgrounds/{facilityId}")
-    public Optional<Campground> findByFacilityId(@PathVariable Long facilityId) {
+    @GetMapping(value = "/campgrounds/{facilityId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Optional<CampgroundDto> findByFacilityId(@PathVariable Long facilityId) {
         return campgroundService.findByFacilityId(facilityId);
     }
 
-    @PostMapping("/campgrounds")
+    @PostMapping(value = "/campgrounds", produces = MediaType.APPLICATION_JSON_VALUE)
     public CampgroundDto createCampground(@RequestBody CampgroundDto campgroundDto) {
         return campgroundService.createCampground(campgroundDto);
     }
 
-    @PutMapping("/campgrounds")
+    @PutMapping(value = "/campgrounds")
     public Optional<CampgroundDto> updateCampground(@RequestBody CampgroundDto campgroundDto) {
         return campgroundService.updateCampground(campgroundDto);
     }

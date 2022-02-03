@@ -37,13 +37,12 @@ const search = event => {
                 let campgroundCard = document.createElement('div')
                 campgroundCard.innerHTML = `
                                             <img src = "http://www.reserveamerica.com${faciltyPhoto}" >
-                                            <h2>${facilityName}</h2>
+                                            <div><h2>${facilityName}</h2>
                                             <h3>${state}</h3>
                                             <h4>pets allowed ${sitesWithPetsAllowed}</h4>
                                             <h4>sites with amps ${sitesWithAmps}</h4>
                                             <h4>sites with water hookups ${sitesWithWaterHookup}</h4>
-                                            <h4>sites with sewer hookups ${sitesWithSewerHookup}</h4>
-                                            `
+                                            <h4>sites with sewer hookups ${sitesWithSewerHookup}</h4></div>`
                 const addCampgroundButton = document.createElement('button')
                 addCampgroundButton.id = i
                 addCampgroundButton.textContent = "Add to List"
@@ -74,11 +73,12 @@ const getUserCampgrounds = () => {
                 let userCampgroundCard = document.createElement("div")
                 userCampgroundCard.innerHTML = `
                                                 <img src = 'HTTP://www.reserveamerica.com${faciltyPhoto}'>
-                                                <h3>${facilityName}</h3>
-                                                <h4>${state}</h4>`
+                                                <div><h3>${facilityName}</h3>
+                                                <h4>${state}</h4></div>`
                 const viewButton = document.createElement('button')
                 viewButton.id = i
                 viewButton.textContent = 'View'
+                viewButton.addEventListener('click', viewUserCampground)
                 userCampgroundCard.appendChild(viewButton)
                 const removeButton = document.createElement('button')
                 removeButton.id = elem[1]
@@ -118,12 +118,25 @@ const removeUserCampground = event => {
         })
 }
 
+const viewUserCampground = event => {
+    event.preventDefault()
+    myStorage.setItem("campgroundFacilityId", userCampgroundArray[event.target.id].facilityId)
+    window.location.href = "HTTP://localhost:8080/campground.html"
+}
+
 const logout = event => {
     event.preventDefault()
     myStorage.clear()
     window.location.href = "HTTP://localhost:8080/login.html"
 }
 
+const checkLoggedIn = () => {
+    if (!myStorage.id) {
+        window.location.href = "HTTP://localhost:8080/login.html"
+    }
+}
+
+checkLoggedIn()
 getUserCampgrounds()
 
 searchButton.addEventListener("click", search)

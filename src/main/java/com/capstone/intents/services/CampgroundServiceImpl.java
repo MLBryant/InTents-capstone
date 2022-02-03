@@ -29,7 +29,12 @@ public class CampgroundServiceImpl implements CampgroundService{
     }
 
     @Override
-    public Optional<Campground> findByFacilityId(Long facilityId) {
+    public Optional<Campground> findById(Long campgroundId) {
+        return campgroundRepository.findById(campgroundId);
+    }
+
+    @Override
+    public Optional<CampgroundDto> findByFacilityId(Long facilityId) {
         return campgroundRepository.findByFacilityId(facilityId);
     }
 
@@ -37,11 +42,10 @@ public class CampgroundServiceImpl implements CampgroundService{
     @Transactional
     public CampgroundDto createCampground(CampgroundDto campgroundDto) {
 //        User user = userRepository.findUserById(userCampground.getUserId());
-        Optional<Campground> campgroundOptional = campgroundRepository.findByFacilityId(campgroundDto.getFacilityId());
-        if (campgroundOptional.isPresent()) {
-            Campground campground = campgroundOptional.get();
+        Optional<CampgroundDto> campgroundDtoOptional = campgroundRepository.findByFacilityId(campgroundDto.getFacilityId());
+        if (campgroundDtoOptional.isPresent()) {
 //            user.addCampgroundToSet(campground);
-            return new CampgroundDto(campground);
+            return campgroundDtoOptional.get();
         } else {
             Campground campground = new Campground();
             setCampgroundAttributes(campgroundDto, campground);

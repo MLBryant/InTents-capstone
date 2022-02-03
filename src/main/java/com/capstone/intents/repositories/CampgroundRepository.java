@@ -9,5 +9,8 @@ import java.util.Optional;
 
 @Repository
 public interface CampgroundRepository extends JpaRepository<Campground, Long> {
-    Optional<Campground> findByFacilityId(Long facilityId);
+
+    Optional<Campground> findById(Long campgroundId);
+
+    Optional<CampgroundDto> findByFacilityId(Long facilityId);
 }

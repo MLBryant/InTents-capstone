@@ -3,6 +3,7 @@ package com.capstone.intents.model;
 import com.capstone.intents.entities.Campground;
 import com.capstone.intents.entities.User;
 import com.capstone.intents.entities.UserCampgroundComment;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

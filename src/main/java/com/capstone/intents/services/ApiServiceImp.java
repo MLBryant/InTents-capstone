@@ -52,7 +52,7 @@ public class ApiServiceImp implements ApiService{
                             elem.getAttribute("sitesWithAmps"),
                             elem.getAttribute("sitesWithPetsAllowed"),
                             elem.getAttribute("sitesWithSewerHookup"),
-                            elem.getAttribute("siteWithWaterHookup"),
+                            elem.getAttribute("sitesWithWaterHookup"),
                             elem.getAttribute("sitesWithWaterfront"),
                             elem.getAttribute("state")
                     );

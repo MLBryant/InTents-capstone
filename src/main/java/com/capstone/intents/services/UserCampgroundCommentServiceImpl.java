@@ -3,6 +3,7 @@ package com.capstone.intents.services;
 import com.capstone.intents.entities.Campground;
 import com.capstone.intents.entities.User;
 import com.capstone.intents.entities.UserCampgroundComment;
+import com.capstone.intents.model.CampgroundDto;
 import com.capstone.intents.model.UserCampgroundCommentDto;
 import com.capstone.intents.repositories.CampgroundRepository;
 import com.capstone.intents.repositories.UserCampgroundCommentRepository;
@@ -32,7 +33,7 @@ public class UserCampgroundCommentServiceImpl implements UserCampgroundCommentSe
     @Override
     public List<UserCampgroundComment> findCommentsByCampgroundId(Long campgroundId) {
         return entityManager.createNativeQuery(
-                        "SELECT ucc.id AS ucc_id, u.id AS u_id, ucc.comment FROM users u " +
+                        "SELECT ucc.id AS ucc_id, u.id AS u_id, u.user_name, ucc.comment FROM users u " +
                                 "INNER JOIN user_campground_comment ucc ON u.id = ucc.user_id " +
                                 "INNER JOIN campground c ON ucc.campground_id = c.id " +
                                 "WHERE c.facility_id = ?1")
@@ -49,12 +50,13 @@ public class UserCampgroundCommentServiceImpl implements UserCampgroundCommentSe
     public String createComment(UserCampgroundCommentDto userCampgroundCommentDto) {
         UserCampgroundComment userCampgroundComment = new UserCampgroundComment();
         User user = userRepository.findUserById(userCampgroundCommentDto.getUser().getId());
-        Campground campground = campgroundRepository.findByFacilityId(userCampgroundCommentDto.getCampground().getFacilityId()).get();
+        Optional<CampgroundDto> campgroundDtoOptional = campgroundRepository.findByFacilityId(userCampgroundCommentDto.getCampground().getFacilityId());
+        Optional<Campground> campgroundOptional = campgroundRepository.findById(campgroundDtoOptional.get().getId());
         userCampgroundComment.setUser(userRepository.findUserById(userCampgroundCommentDto.getUser().getId()));
-        userCampgroundComment.setCampground(campgroundRepository.findByFacilityId(userCampgroundCommentDto.getCampground().getFacilityId()).get());
+        userCampgroundComment.setCampground(campgroundOptional.get());
         userCampgroundComment.setComment(userCampgroundCommentDto.getComment());
         user.getUserCampgroundCommentSet().add(userCampgroundComment);
-        campground.getUserCampgroundCommentSet().add(userCampgroundComment);
+        campgroundOptional.get().getUserCampgroundCommentSet().add(userCampgroundComment);
         userCampgroundCommentRepository.save(userCampgroundComment);
         return "yo";
     }
@@ -65,16 +67,16 @@ public class UserCampgroundCommentServiceImpl implements UserCampgroundCommentSe
     }
 
     @Override
-    public Optional<UserCampgroundCommentDto> updateComment(UserCampgroundCommentDto userCampgroundCommentDto) {
+    @Transactional
+    public String updateComment(UserCampgroundCommentDto userCampgroundCommentDto) {
         Optional<UserCampgroundComment> userCampgroundCommentOptional = userCampgroundCommentRepository.findById(userCampgroundCommentDto.getId());
-        UserCampgroundComment userCampgroundComment = null;
         if(userCampgroundCommentOptional.isPresent()) {
-            userCampgroundComment = userCampgroundCommentOptional.get();
-            userCampgroundComment.setUser(userCampgroundCommentDto.getUser());
-            userCampgroundComment.setCampground(userCampgroundCommentDto.getCampground());
-            userCampgroundComment.setComment(userCampgroundComment.getComment());
-            return Optional.of(new UserCampgroundCommentDto(userCampgroundCommentRepository.save(userCampgroundComment)));
+            UserCampgroundComment userCampgroundComment = userCampgroundCommentOptional.get();
+            userCampgroundComment.setComment(userCampgroundCommentDto.getComment());
+            entityManager.persist(userCampgroundComment);
+            entityManager.flush();
+            return "badass";
         }
-        return Optional.empty();
+        return "shit";
     }
 }

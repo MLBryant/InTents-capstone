@@ -36,7 +36,7 @@ public class UserCampgroundCommentRestController {
     }
 
     @PutMapping
-    public Optional<UserCampgroundCommentDto> updateComment(@RequestBody UserCampgroundCommentDto userCampgroundCommentDto) {
+    public String updateComment(@RequestBody UserCampgroundCommentDto userCampgroundCommentDto) {
         return userCampgroundCommentService.updateComment(userCampgroundCommentDto);
     }
 
