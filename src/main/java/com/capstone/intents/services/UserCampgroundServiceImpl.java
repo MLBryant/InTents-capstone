@@ -63,7 +63,7 @@ public class UserCampgroundServiceImpl implements UserCampgroundService{
         Optional<Campground> campgroundOptional = campgroundRepository.findById(campgroundDtoOptional.get().getId());
         userOptional.get().removeCampgroundFromSet(campgroundOptional.get());
         entityManager.persist(userOptional.get());
-        entityManager.persist(campgroundDtoOptional.get());
+        entityManager.persist(campgroundOptional.get());
         entityManager.flush();
 //        entityManager.createNativeQuery(
 //                "DELETE FROM user_campground " +

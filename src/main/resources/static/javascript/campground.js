@@ -143,6 +143,7 @@ const openCommentModal = event => {
 const cancelComment = event => {
     event.preventDefault()
     addCommentField.value = ''
+    submitButton.value = 'Add Comment'
     commentModal.style.display = 'none'
     addCommentForm.removeEventListener('click', addComment)
     commentCancelButton.removeEventListener('click', cancelComment)
