@@ -75,8 +75,8 @@ public class UserCampgroundCommentServiceImpl implements UserCampgroundCommentSe
             userCampgroundComment.setComment(userCampgroundCommentDto.getComment());
             entityManager.persist(userCampgroundComment);
             entityManager.flush();
-            return "badass";
+            return "Comment updated";
         }
-        return "shit";
+        return "Comment not found";
     }
 }

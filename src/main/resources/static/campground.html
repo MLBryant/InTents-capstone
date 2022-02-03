@@ -8,11 +8,16 @@
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
-    <header>
-        <button id="logoutButton">Logout</button>
+    <header id = 'campgroundHeader'>
+        <button id = 'homeButton'>Home</button>
+        <h1 id="campgroundTitle">InTents</h1>
+        <button id="campgroundLogoutButton">Logout</button>
     </header>
-    <div id = "campgroundDiv"></div>
-    <div id = "commentDiv"></div>
+    <main id="campgroundMain">
+    <div id="contentDiv">
+        <div id = "campgroundDiv"></div>
+        <div id = "commentDiv"></div>
+    </div>
     <div id = 'commentModal' class = 'modal'>
         <div id = 'commentModalContent'>
             <form id = 'addCommentForm' action="">
@@ -22,6 +27,7 @@
             <button id = 'commentCancel'>Cancel</button>
         </div>
     </div>
+    </main>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="./javascript/campground.js"></script>
 </body>

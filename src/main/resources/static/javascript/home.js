@@ -1,6 +1,6 @@
 const stateSelect = document.getElementById("stateSelect")
 const searchButton = document.getElementById("searchButton")
-const logoutButton = document.getElementById("logoutButton")
+const logoutButton = document.getElementById("homeLogoutButton")
 const searchColumn = document.getElementById("searchColumn")
 const listColumn = document.getElementById("listColumn")
 
@@ -35,16 +35,19 @@ const search = event => {
                     faciltyPhoto: faciltyPhoto
                 }
                 let campgroundCard = document.createElement('div')
-                campgroundCard.innerHTML = `
-                                            <img src = "http://www.reserveamerica.com${faciltyPhoto}" >
-                                            <div><h2>${facilityName}</h2>
-                                            <h3>${state}</h3>
-                                            <h4>pets allowed ${sitesWithPetsAllowed}</h4>
-                                            <h4>sites with amps ${sitesWithAmps}</h4>
-                                            <h4>sites with water hookups ${sitesWithWaterHookup}</h4>
-                                            <h4>sites with sewer hookups ${sitesWithSewerHookup}</h4></div>`
+                campgroundCard.classList.add('campgroundSearchCard')
+                campgroundCard.innerHTML = `<div class = 'searchCard'>
+                                            <img class = 'searchPhoto' src = "http://www.reserveamerica.com${faciltyPhoto}" >
+                                            <div class = 'searchTextDiv'><h2 class = 'searchText'>${facilityName}</h2>
+                                            <h3 class = 'searchText'>${state}</h3>
+                                            <h4 class = 'searchText'>pets allowed ${sitesWithPetsAllowed}</h4>
+                                            <h4 class = 'searchText'>sites with amps ${sitesWithAmps}</h4>
+                                            <h4 class = 'searchText'>sites with water hookups ${sitesWithWaterHookup}</h4>
+                                            <h4 class = 'searchText'>sites with sewer hookups ${sitesWithSewerHookup}</h4></div>
+                                            </div>`
                 const addCampgroundButton = document.createElement('button')
                 addCampgroundButton.id = i
+                addCampgroundButton.classList.add('searchAddButton')
                 addCampgroundButton.textContent = "Add to List"
                 addCampgroundButton.addEventListener("click", addCampground)
                 campgroundCard.appendChild(addCampgroundButton)
@@ -60,6 +63,7 @@ const getUserCampgrounds = () => {
         .then(res => {
             userCampgroundArray = []
             listColumn.innerHTML = ''
+            listColumn.innerHTML = `<h2>${myStorage.userName}'s List`
             console.log(res.data)
             res.data.forEach((elem, i) => {
                 console.log(elem)
@@ -71,20 +75,26 @@ const getUserCampgrounds = () => {
                 }
                 console.log(facilityName, state, faciltyPhoto)
                 let userCampgroundCard = document.createElement("div")
+                userCampgroundCard.classList.add('userCampgroundCard')
                 userCampgroundCard.innerHTML = `
-                                                <img src = 'HTTP://www.reserveamerica.com${faciltyPhoto}'>
-                                                <div><h3>${facilityName}</h3>
-                                                <h4>${state}</h4></div>`
+                                                <img class = 'userCampgroundPhoto' src = 'HTTP://www.reserveamerica.com${faciltyPhoto}'>
+                                                <div class = 'userCampgroundTextDiv'><h3 class = 'userCampgroundText'>${facilityName}</h3>
+                                                <h4 class = 'userCampgroundText'>${state}</h4></div>`
+                const userCampgroundButtonsDiv = document.createElement('div')
+                userCampgroundButtonsDiv.classList.add('userCampgroundButtonsDiv')
                 const viewButton = document.createElement('button')
                 viewButton.id = i
+                viewButton.classList.add('userCampgroundButton')
                 viewButton.textContent = 'View'
                 viewButton.addEventListener('click', viewUserCampground)
-                userCampgroundCard.appendChild(viewButton)
+                userCampgroundButtonsDiv.appendChild(viewButton)
                 const removeButton = document.createElement('button')
                 removeButton.id = elem[1]
+                removeButton.classList.add('userCampgroundButton')
                 removeButton.textContent = "Remove"
                 removeButton.addEventListener("click", removeUserCampground)
-                userCampgroundCard.appendChild(removeButton)
+                userCampgroundButtonsDiv.appendChild(removeButton)
+                userCampgroundCard.appendChild(userCampgroundButtonsDiv)
                 listColumn.appendChild(userCampgroundCard)
                 let userCampground = {
                     facilityName: facilityName,

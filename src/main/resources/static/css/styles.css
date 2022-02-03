@@ -1,4 +1,300 @@
+body {
+    margin: 0%;
+    background: url(/images/tentBackground.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    opacity: 100%;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
 
+header  {
+    margin: 0%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: chocolate;
+}
+
+#title {
+    margin: 0%;
+    font-size: 4vw;
+}
+
+#loginMain {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#loginDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25vw;
+    height: 10vw;
+    position: relative;
+    top: 20vh;
+    background-color: chocolate;
+}
+
+#loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    width: 30vw;
+}
+
+#usernameDiv {
+    display: flex;
+    align-items: flex-end;
+}
+
+#passwordDiv {
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+    left: 1.5%;
+}
+
+label {
+    font-size: 1.3vw;
+}
+
+#loginButtonDiv {
+    margin-top: 5%;
+}
+
+#homeHeader {
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+#searchForm {
+    margin-bottom: .8%;
+    margin-left: 4%;
+    display: flex;
+    align-items: flex-end;
+}
+
+#homeTitle {
+    margin: 0%;
+    font-size: 4vw;
+    position: relative;
+    right: 2%;
+}
+
+#homeLogoutButton {
+    margin-bottom: .8%;
+    margin-right: 4%;
+}
+
+#searchColumn {
+    width: 75%;
+    float: left;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin-bottom: 5%;
+}
+
+#listColumn {
+    width: 25%;
+    float: right;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(209, 225, 253, .5);
+    margin-bottom: 5%;
+}
+
+.campgroundSearchCard {
+    width: 28%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin: 2%;
+    background-color: rgb(210, 105, 30, .7);
+}
+
+.searchCard {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.searchPhoto {
+    margin-top: 1%;
+    margin-left: 1%;
+}
+
+.searchText {
+    margin: 1%;
+}
+
+.searchAddButton {
+    margin: 1%;
+    position: relative;
+    left: 34%;
+}
+
+.userCampgroundCard {
+    margin: 5%;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(210, 105, 30, .7);
+}
+
+.userCampgroundPhoto {
+    margin-top: 3%;
+}
+
+.userCampgroundTextDiv {
+    text-align: center;
+}
+
+.userCampgroundText {
+    margin: 1%;
+}
+
+.userCampgroundButtonsDiv {
+    margin-bottom: 3%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.userCampgroundButton {
+    margin: 2%;
+}
+
+#campgroundHeader {
+    margin: 0%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    background-color: chocolate;
+}
+
+#campgroundTitle {
+    margin: 0%;
+    font-size: 4vw;
+    position: relative;
+    right: 32.5%;
+}
+
+#campgroundLogoutButton {
+    margin-right: 5%;
+    margin-bottom: .8%;
+}
+
+#campgroundMain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#contentDiv {
+    margin-top: 5%;
+    background-color: rgb(209, 225, 253, .5);
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5%;
+}
+
+#campgroundDiv {
+    width: 80%;
+    background-color: rgb(210, 105, 30, .7);
+    margin: 5%;
+}
+
+.campgroundCard {
+    margin: 3%;
+}
+
+.campgroundCardDiv {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-evenly;
+}
+
+.campgroundPhoto {
+    margin-top: 2%;
+}
+
+.campgroundText {
+    margin: 2%;
+}
+
+.campgroundButtonsDiv {
+    display: flex;
+    justify-content: center;
+}
+
+#commentDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5%;
+    width: 70%;
+}
+
+.commentCard{
+    width: 100%;
+    min-height: 27vh;
+    margin-bottom: 5%;
+    background-color: rgb(210, 105, 30, .7);
+}
+
+.commentCardDiv {
+    margin: 2%;
+}
+
+.commentUser {
+    margin: 1%;
+    font-size: 100%;
+}
+
+.userCommentDiv {
+    min-height: 15vh;
+    background-color: rgb(210, 210, 210, .8);
+}
+
+.comment {
+    margin: 2%;
+    font-size: 110%;
+    text-align: left;
+}
+
+.editButtonsDiv {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#homeButton {
+    margin-right: 69%;
+    margin-bottom: .8%;
+}
+
+#addCommentForm {
+    margin-top: 6%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#commentCancel {
+    margin-bottom: 6%;
+}
 
 .modal {
     display: none;
@@ -12,7 +308,7 @@
 }
 
 #commentModalContent {
-    width: 20vw;
+    width: 28vw;
     margin: 15% auto;
     text-align: center;
     box-sizing: border-box;

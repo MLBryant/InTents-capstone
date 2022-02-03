@@ -1,6 +1,7 @@
 const campgroundDiv = document.getElementById("campgroundDiv")
 const commentDiv = document.getElementById('commentDiv')
-const logoutButton = document.getElementById("logoutButton")
+const logoutButton = document.getElementById("campgroundLogoutButton")
+const homeButton = document.getElementById('homeButton')
 const commentModal = document.getElementById('commentModal')
 const addCommentForm = document.getElementById('addCommentForm')
 const addCommentField = document.getElementById('addCommentField')
@@ -19,18 +20,24 @@ const getCampground = () => {
                 faciltyPhoto = "/webphotos/KY/pid91833/0/80x53.jpg"
             }
             let campgroundCard = document.createElement('div')
-            campgroundCard.innerHTML = `
-                                            <img src = "http://www.reserveamerica.com${faciltyPhoto}" >
-                                            <div><h2>${facilityName}</h2>
-                                            <h3>${state}</h3>
-                                            <h4>pets allowed ${sitesWithPetsAllowed}</h4>
-                                            <h4>sites with amps ${sitesWithAmps}</h4>
-                                            <h4>sites with water hookups ${sitesWithWaterHookup}</h4>
-                                            <h4>sites with sewer hookups ${sitesWithSewerHookup}</h4></div>`
+            campgroundCard.classList.add('campgroundCard')
+            campgroundCard.innerHTML = `    <div class = 'campgroundCardDiv'>
+                                            <img class = 'campgroundPhoto' src = "http://www.reserveamerica.com${faciltyPhoto}" >
+                                            <div class = 'campgroundTextDiv'><h1 class = 'campgroundText'>${facilityName}</h1>
+                                            <h2 class = 'campgroundText'>${state}</h2>
+                                            <h4 class = 'campgroundText'>pets allowed ${sitesWithPetsAllowed}</h4>
+                                            <h4 class = 'campgroundText'>sites with amps ${sitesWithAmps}</h4>
+                                            <h4 class = 'campgroundText'>sites with water hookups ${sitesWithWaterHookup}</h4>
+                                            <h4 class = 'campgroundText'>sites with sewer hookups ${sitesWithSewerHookup}</h4></div>
+                                            </div>`
+            const campgroundButtonsDiv = document.createElement('div')
+            campgroundButtonsDiv.classList.add('campgroundButtonsDiv')
             const commentButton = document.createElement('button')
+            commentButton.classList.add('campgroundButton')
             commentButton.textContent = 'Add a Comment'
             commentButton.addEventListener('click', openCommentModal)
-            campgroundCard.appendChild(commentButton)
+            campgroundButtonsDiv.appendChild(commentButton)
+            campgroundCard.appendChild(campgroundButtonsDiv)
             campgroundDiv.appendChild(campgroundCard)
         })
 }
@@ -45,6 +52,7 @@ const addComment = event => {
     }
     axios.post("HTTP://localhost:8080/api/v1/comments", commentRequest)
         .then(res => {
+            addCommentField.value = ''
             commentModal.style.display = 'none'
             addCommentForm.removeEventListener('submit', addComment)
             commentCancelButton.removeEventListener('click', cancelComment)
@@ -64,6 +72,7 @@ const editComment = event => {
     console.log(editRequest)
     axios.put("HTTP://localhost:8080/api/v1/comments", editRequest)
         .then(res => {
+            addCommentField.value = ''
             commentModal.style.display = 'none'
             addCommentForm.removeEventListener('submit', addComment)
             commentCancelButton.removeEventListener('click', cancelComment)
@@ -86,20 +95,28 @@ const getCampgroundComments = () => {
                 let comment = elem[3]
                 console.log(commentId)
                 const commentCard = document.createElement('div')
+                commentCard.classList.add('commentCard')
                 commentCard.innerHTML = `
+                                        <div class = 'commentCardDiv'>
                                         <h5>${userName}:</h5>
-                                        <p>${comment}</p>`
+                                        <div class = 'userCommentDiv'>
+                                        <p class = 'comment'>${comment}</p>
+                                        </div>
+                                        </div>`
                 if (userId == myStorage.id) {
+                    const editButtonsDiv = document.createElement('div')
+                    editButtonsDiv.classList.add('editButtonsDiv')
                     const editCommentButton = document.createElement('button')
                     editCommentButton.textContent = "Edit"
                     editCommentButton.id = commentId
                     editCommentButton.addEventListener('click', openEditCommentModal)
-                    commentCard.appendChild(editCommentButton)
+                    editButtonsDiv.appendChild(editCommentButton)
                     const deleteCommentButton = document.createElement('button')
                     deleteCommentButton.id = commentId
                     deleteCommentButton.textContent = 'Delete'
                     deleteCommentButton.addEventListener('click', deleteComment)
-                    commentCard.appendChild(deleteCommentButton)
+                    editButtonsDiv.appendChild(deleteCommentButton)
+                    commentCard.appendChild(editButtonsDiv)
                 }
                 commentDiv.appendChild(commentCard)
             })
@@ -125,6 +142,7 @@ const openCommentModal = event => {
 
 const cancelComment = event => {
     event.preventDefault()
+    addCommentField.value = ''
     commentModal.style.display = 'none'
     addCommentForm.removeEventListener('click', addComment)
     commentCancelButton.removeEventListener('click', cancelComment)
@@ -146,7 +164,20 @@ const logout = event => {
     window.location.href = "HTTP://localhost:8080/login.html"
 }
 
+const goHome = event => {
+    event.preventDefault()
+    window.location.href = 'HTTP://localhost:8080/home.html'
+}
+
+const checkLoggedIn = () => {
+    if (!myStorage.id) {
+        window.location.href = "HTTP://localhost:8080/login.html"
+    }
+}
+
+checkLoggedIn()
 getCampground()
 getCampgroundComments()
 
 logoutButton.addEventListener('click', logout)
+homeButton.addEventListener('click', goHome)

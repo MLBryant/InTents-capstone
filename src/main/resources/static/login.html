@@ -7,18 +7,30 @@
     <title>Document</title>
     <link rel="stylesheet" href="./css/styles.css">
 </head>
-<body>
-    <header></header>
-    <div>
-        <form action="">
+<body class="body">
+    <header>
+        <h1 id="title">InTents</h1>
+    </header>
+    <main id="loginMain">
+    <div id="loginDiv">
+        <form action="" id="loginForm">
+            <div>
+            <div id="usernameDiv">
             <label for="username-input">Username</label>
-            <input type="text" type="login-input" id="username-input">
+            <input type="text" id="username-input" required>
+            </div>
+            <div id="passwordDiv">
             <label for="password-input">password</label>
-            <input type="text" type="login-input" id="password-input">
+            <input type="password" id="password-input" required>
+            </div>
+            </div>
+            <div id="loginButtonDiv">
             <button id="login-button">Login</button>
             <button id="register-button">Register</button>
+            </div>
         </form>
     </div>
+    </main>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./javascript/login.js"></script>
 </body>
